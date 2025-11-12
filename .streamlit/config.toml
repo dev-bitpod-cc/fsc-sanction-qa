@@ -1,0 +1,30 @@
+# Streamlit 配置檔案
+# 用於解決連接超時和凍結問題
+
+[server]
+# 禁用 WebSocket 壓縮以提高穩定性
+enableWebsocketCompression = false
+
+# 啟用 CORS（跨域資源共享）
+enableCORS = false
+
+# 啟用 XSRF 保護
+enableXsrfProtection = true
+
+[browser]
+# 收集使用統計
+gatherUsageStats = false
+
+[client]
+# 顯示錯誤詳情
+showErrorDetails = false
+
+# 工具列模式
+toolbarMode = "minimal"
+
+[runner]
+# 加速重新運行
+fastReruns = true
+
+# 啟用 magic commands
+magicEnabled = true
