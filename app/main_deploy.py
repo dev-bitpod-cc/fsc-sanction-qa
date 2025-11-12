@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 金管會裁罰案件智能問答系統 - Streamlit 部署版本
-使用 Google Gemini File Search
 """
 
 import streamlit as st
@@ -66,25 +65,24 @@ def render_sidebar(gemini_engine):
         index_info = gemini_engine.get_index_info()
 
         if index_info['exists']:
-            st.success("✅ File Search Store 已就緒")
+            st.success("✅ 智能索引已就緒")
             st.metric("📚 檔案數量", index_info['total_files'])
 
             with st.expander("ℹ️ 詳細資訊", expanded=False):
                 st.caption(f"📅 建立時間: {index_info['created_time']}")
-                st.caption(f"🆔 Store ID: {index_info.get('store_resource_name', '未知')[:45]}...")
 
                 st.markdown("""
-                **使用的技術：**
-                - 🌐 Google Gemini File Search
-                - 🤖 Gemini 2.5 Flash 模型
-                - ✨ 永久保存的索引
+                **系統特色：**
+                - 🤖 AI 驅動的語意搜尋
+                - 📊 智能文件檢索
+                - ✨ 永久保存的知識庫
 
                 **資料來源：**
                 - 490 筆金管會裁罰案件
                 - 涵蓋 2012-2025 年
                 """)
         else:
-            st.error("⚠️ File Search Store 未建立")
+            st.error("⚠️ 智能索引未建立")
             st.info("請聯繫系統管理員")
 
         st.markdown("---")
@@ -106,7 +104,7 @@ def render_sidebar(gemini_engine):
 
         st.markdown("---")
         st.caption("💾 資料來源: 490 筆裁罰案件")
-        st.caption("🤖 技術支援: Google Gemini")
+        st.caption("🤖 AI 智能問答系統")
 
 
 def main():
@@ -119,7 +117,7 @@ def main():
 
     # 主標題
     st.title("⚖️ 金管會裁罰案件智能問答")
-    st.markdown("### 由 Google Gemini File Search 提供支援")
+    st.markdown("### AI 驅動的智能查詢系統")
 
     st.markdown("---")
 
@@ -161,7 +159,7 @@ def main():
 
     # 處理查詢
     if submit_button and question:
-        with st.spinner("🔍 使用 Gemini File Search 查詢中..."):
+        with st.spinner("🔍 AI 查詢中..."):
             try:
                 # 執行查詢
                 response = gemini_engine.query(question)
