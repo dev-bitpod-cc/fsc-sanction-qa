@@ -118,6 +118,7 @@ def main():
     # 主標題
     st.title("⚖️ 金管會裁罰案件智能問答")
     st.markdown("### AI 驅動的智能查詢系統")
+    st.caption("💡 本系統為展示用，如遇畫面無反應，請重新整理頁面")
 
     st.markdown("---")
 
