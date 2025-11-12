@@ -1,0 +1,34 @@
+# Gemini File Search 引擎配置
+
+api_key_env: "GEMINI_API_KEY"
+model: "gemini-2.5-flash"  # File Search 只支援 2.5 版本
+
+corpus:
+  name: "fsc_penalties"
+  display_name: "金管會裁罰案件"
+  description: "490筆金融監督管理委員會裁罰案件 (2012-2025)"
+
+chunking:
+  chunk_size: 512
+  chunk_overlap: 100
+
+generation:
+  temperature: 0.1
+  max_output_tokens: 2000
+  system_instruction: |
+    你是專業的金融法規顧問。請根據參考資料回答問題。
+
+    回答時必須：
+    1. 明確引用來源文件（檔案名稱、日期）
+    2. 列舉具體案例與裁罰內容
+    3. 如果資料中沒有相關資訊，請誠實說明
+    4. 使用繁體中文回答
+    5. 保持專業、客觀的態度
+
+pricing:
+  # Gemini 2.0 Flash 價格（每百萬 tokens）
+  input_price: 0.075   # $0.075 / 1M tokens
+  output_price: 0.30   # $0.30 / 1M tokens
+  embedding_price: 0.15  # $0.15 / 1M tokens（僅建立索引時）
+  storage_free: true   # 儲存免費
+  query_embedding_free: true  # 查詢時 embedding 免費

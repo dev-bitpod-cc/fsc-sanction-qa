@@ -1,0 +1,6 @@
+# Streamlit Cloud 部署依賴清單
+# 只包含 Gemini File Search 需要的套件
+
+streamlit>=1.30.0
+google-generativeai>=1.49.0
+pyyaml>=6.0

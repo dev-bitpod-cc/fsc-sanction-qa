@@ -1,0 +1,81 @@
+# Python虛擬環境
+venv/
+env/
+ENV/
+
+# Python編譯檔案
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 日誌檔案
+*.log
+download_log.txt
+scraper_output.log
+
+# 臨時檔案
+*.tmp
+*.temp
+page_debug.html
+
+# 備份檔案
+*_backup/
+*_backup.*
+*_old_numbering/
+*_old_numbering.*
+penalties_backup/
+installed_packages_before_cleanup.txt
+
+# macOS系統檔案
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE設定檔
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 資料庫檔案(如果未來使用)
+*.db
+*.sqlite
+*.sqlite3
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# ============================================
+# 🔒 API Keys 和敏感資訊 (絕對不能上傳！)
+# ============================================
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+secrets.yaml
+api_keys.txt
+credentials.json
+
+# Streamlit Secrets
+.streamlit/secrets.toml
+
+# Gemini Corpus 資訊（可能包含敏感資訊）
+data/gemini_corpus/corpus_info.txt
+
+# 不需要部署的資料檔案（太大或不必要）
+data/penalties/
+data/chroma_db/
+
+# 本地配置覆蓋
+config/local_config.yaml
+config/*_local.yaml
+
+# 測試覆蓋率
+htmlcov/
+.coverage
+.coverage.*
