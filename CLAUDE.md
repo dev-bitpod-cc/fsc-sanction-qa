@@ -35,6 +35,12 @@ This is a **production-ready deployment** of an AI-powered Q&A system for Financ
 - Use generic terms: "AI 智能問答系統", "智能索引", "AI 查詢中"
 - Technical implementation details (Gemini engine) remain in code/logs
 
+### 5. Streamlit Configuration
+- `.streamlit/config.toml` contains optimizations for connection stability
+- Disables WebSocket compression to reduce connection timeouts
+- **Note**: Streamlit Community Cloud free tier may pause idle apps after a few minutes of inactivity
+- User-facing reminder added: "本系統為展示用，如遇畫面無反應，請重新整理頁面" (`main_deploy.py:121`)
+
 ## Running the Application
 
 ### Local Development
@@ -119,6 +125,7 @@ RAGResponse(
 2. **Missing Store ID**: App fails if `store_info.json` is missing or malformed
 3. **API Key**: Must be set in Streamlit Secrets, NOT in code or .env files
 4. **Import paths**: Use relative imports within app/ package (`from .base import ...`)
+5. **Connection timeout**: Streamlit Community Cloud free tier pauses idle apps. Users should refresh the page if UI becomes unresponsive (reminder message displayed in UI)
 
 ## File Structure Logic
 
@@ -131,8 +138,12 @@ app/
 └── utils/
     └── config_loader.py    # YAML config loader
 
+.streamlit/
+├── config.toml             # Streamlit server config (connection stability)
+└── secrets.toml.example    # API key template
+
 data/gemini_corpus/
-└── store_info.json         # Critical: Contains File Search Store ID
+└── store_info.json         # Critical: Contains File Search Store ID and filename mappings
 
 config/
 └── gemini_config.yaml      # Model config (temperature, tokens, etc.)
