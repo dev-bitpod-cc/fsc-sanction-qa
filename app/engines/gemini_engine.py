@@ -47,6 +47,9 @@ class GeminiEngine(RAGEngine):
         self.store_name = None
         self.store_resource_name = None
 
+        # 檔案 ID 到原始檔名的映射表
+        self.file_id_to_name = {}
+
         # 定價資訊
         self.pricing = config.get('pricing', {})
 
@@ -248,10 +251,19 @@ class GeminiEngine(RAGEngine):
 
                                 # 提取文件名稱
                                 filename = "未知文件"
+                                file_id = None
+
+                                # 嘗試從不同欄位取得檔案 ID
                                 if hasattr(context, 'title') and context.title:
-                                    filename = context.title
+                                    file_id = context.title
                                 elif hasattr(context, 'uri') and context.uri:
-                                    filename = context.uri.split('/')[-1]
+                                    file_id = context.uri.split('/')[-1]
+
+                                # 使用映射表轉換為原始檔名
+                                if file_id and file_id in self.file_id_to_name:
+                                    filename = self.file_id_to_name[file_id]
+                                elif file_id:
+                                    filename = file_id  # 如果找不到映射，使用 ID
 
                                 # 提取內容片段
                                 snippet = ""
@@ -359,11 +371,21 @@ class GeminiEngine(RAGEngine):
                 logger.error("File Search Store 資源名稱不存在")
                 return False
 
-            self._initialized = True
+            # 載入檔案 ID 到原始檔名的映射表
+            files = info_data.get('files', [])
+            for file_info in files:
+                file_id = file_info.get('file_name', '').replace('files/', '')
+                display_name = file_info.get('display_name', '')
+                if file_id and display_name:
+                    self.file_id_to_name[file_id] = display_name
+
             logger.info(
                 f"已載入 File Search Store: {info_data.get('total_files', 0)} 個文件 "
-                f"(建立於 {info_data.get('created_time', '未知')})"
+                f"(建立於 {info_data.get('created_time', '未知')}), "
+                f"映射表包含 {len(self.file_id_to_name)} 個檔案"
             )
+
+            self._initialized = True
             return True
 
         except Exception as e:
